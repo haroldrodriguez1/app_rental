@@ -15,6 +15,8 @@ import InsertarMantenimiento from '../componentes/mantenimiento/insertarmantenim
 import EditarMantenimiento from '../componentes/mantenimiento/editarMantenimiento';
 import Renta from '../componentes/renta/renta';
 import MisRentas from '../componentes/renta/MisRentas';
+import Vehiculo from '../componentes/vehiculo/ListarVehiculo';
+import InsertarEditarVehiculo from '../componentes/vehiculo/InsertarEditarVehiculo';
 
 
 
@@ -45,6 +47,8 @@ const Navegacion = () => {
           <Stack.Screen name="Editar mantenimiento" component={EditarMantenimiento} options={{ headerShown: false }} />
           <Stack.Screen name="Renta" component={Renta} options={{ headerShown: false }} />
           <Stack.Screen name="Mis Rentas" component={MisRentas} options={{ headerShown: false }} />
+          <Stack.Screen name="Vehiculo" component={Vehiculos} options={{ headerShown: false }}/>
+          <Stack.Screen name="InsertarEditarVehiculos" component={InsertarEditarVehiculo} options={{ headerShown: false }} />
 
         </Stack.Navigator>
       </NavigationContainer>

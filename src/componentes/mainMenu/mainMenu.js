@@ -14,6 +14,7 @@ const BotonesGrid = () => {
     { id: '3', titulo: 'Mantenimiento', icono: 'car-repair',ruta:'Mantenimiento' },
     { id: '4', titulo: 'Renta', icono: 'car-rental',ruta:'Renta' },
     { id: '', titulo: 'Renta', icono: 'list-alt',ruta:'Mis Rentas' },
+    { id: '5', titulo: 'Vehículo', icono: 'car', ruta: 'Vehiculos' },
 
 
   ];
