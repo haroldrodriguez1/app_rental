@@ -17,7 +17,10 @@ import Renta from '../componentes/renta/renta';
 import MisRentas from '../componentes/renta/MisRentas';
 import Vehiculo from '../componentes/vehiculo/ListarVehiculo';
 import InsertarEditarVehiculo from '../componentes/vehiculo/InsertarEditarVehiculo';
-
+import InsertarEditarSucursal from '../componentes/sucursal/InsertarEditarSucursal';
+import InsertarEditarCliente from '../componentes/cliente/InsertarEditarCliente';
+import Sucursal from '../componentes/sucursal/ListarSucursal';
+import Cliente from '../componentes/cliente/ListarCliente';
 
 
 const Stack = createStackNavigator();
@@ -49,7 +52,10 @@ const Navegacion = () => {
           <Stack.Screen name="Mis Rentas" component={MisRentas} options={{ headerShown: false }} />
           <Stack.Screen name="Vehiculos" component={Vehiculo} options={{ headerShown: false }}/>
           <Stack.Screen name="InsertarEditarVehiculos" component={InsertarEditarVehiculo} options={{ headerShown: false }} />
-
+          <Stack.Screen name="InsertarEditarSucursal" component={InsertarEditarSucursal} />
+          <Stack.Screen name="InsertarEditarCliente" component={InsertarEditarCliente} />
+          <Stack.Screen name="Sucursal" component={Sucursal} />
+          <Stack.Screen name="Cliente" component={Cliente} />
         </Stack.Navigator>
       </NavigationContainer>
     </>
