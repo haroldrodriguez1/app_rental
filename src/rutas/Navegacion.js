@@ -47,7 +47,7 @@ const Navegacion = () => {
           <Stack.Screen name="Editar mantenimiento" component={EditarMantenimiento} options={{ headerShown: false }} />
           <Stack.Screen name="Renta" component={Renta} options={{ headerShown: false }} />
           <Stack.Screen name="Mis Rentas" component={MisRentas} options={{ headerShown: false }} />
-          <Stack.Screen name="Vehiculo" component={Vehiculos} options={{ headerShown: false }}/>
+          <Stack.Screen name="Vehiculos" component={Vehiculo} options={{ headerShown: false }}/>
           <Stack.Screen name="InsertarEditarVehiculos" component={InsertarEditarVehiculo} options={{ headerShown: false }} />
 
         </Stack.Navigator>

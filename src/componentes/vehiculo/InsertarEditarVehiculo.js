@@ -10,8 +10,8 @@ const InsertarEditarVehiculo = () => {
   const route = useRoute();
   const { vehiculoid } = route.params || {}; 
   const [marca, setMarca] = useState('');
-  const [modelo, setTModelo] = useState('');
-  const [año, setaño] = useState('');
+  const [modelo, setModelo] = useState('');
+  const [anio, setanio] = useState('');
   const [precioPorDia, setPrecioPorDia] = useState('');
   const [tipoVehiculo, setTipoVehiculo] = useState('');
   const [estado, setEstado] = useState('');
@@ -22,13 +22,13 @@ const InsertarEditarVehiculo = () => {
       const obtenerVehiculo = async () => {
         try {
           const token = await AsyncStorage.getItem('authToken');
-          const respuesta = await axios.get(`http://${ip}:3001/api/vehiculo/buscarvehiculo?id=${vehiculoid}`, {
+          const respuesta = await axios.get(`http://${ip}:3001/api/vehiculo/buscarvehiculoid?vehiculoid=${vehiculoid}`, {
             headers: { Authorization: `Bearer ${token}` },
           });
           const vehiculo = respuesta.data[0];
           setMarca(vehiculo.marca);
           setModelo(vehiculo.modelo);
-          setAño(vehiculo.año);
+          setanio(vehiculo.año.toString());
           setPrecioPorDia(vehiculo.precioPorDia);
           setTipoVehiculo(vehiculo.tipoVehiculo);
           setEstado(vehiculo.estado);
@@ -44,7 +44,7 @@ const InsertarEditarVehiculo = () => {
 
 
   const manejarGuardar = async () => {
-    if (!marca || !modelo || !año || !precioPorDia || !tipoVehiculo || !estado || !placa) {
+    if (!marca || !modelo || !anio || !precioPorDia || !tipoVehiculo || !estado || !placa) {
       Alert.alert('Error', 'Por favor completa todos los campos.');
       return;
     }
@@ -52,7 +52,7 @@ const InsertarEditarVehiculo = () => {
     const vehiculo = {
       marca,
       modelo,
-      año,
+      año : parseInt(anio),
       precioPorDia: parseFloat(precioPorDia),
       tipoVehiculo,
       estado,
@@ -61,8 +61,8 @@ const InsertarEditarVehiculo = () => {
 
     try {
       const token = await AsyncStorage.getItem('authToken');
-      if (id) {
-        const respuesta = await axios.put(`http://${ip}:3001/api/vehiculo/editar?id=${id}`, vehiculo, {
+      if (vehiculoid) {
+        const respuesta = await axios.put(`http://${ip}:3001/api/vehiculo/editar?id=${vehiculoid}`, vehiculo, {
           headers: { Authorization: `Bearer ${token}` },
         });
         Alert.alert('Notificación', JSON.stringify(respuesta.data, null, 2));
@@ -99,8 +99,8 @@ const InsertarEditarVehiculo = () => {
       <TextInput
         style={styles.input}
         placeholder="Año"
-        value={año}
-        onChangeText={setAño}
+        value={anio}
+        onChangeText={setanio}
         color= '#fff'
       />
       <TextInput

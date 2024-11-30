@@ -1,3 +1,3 @@
-const ip = '192.168.56.1';
+const ip = '192.168.100.47';
 
 module.exports = ip;

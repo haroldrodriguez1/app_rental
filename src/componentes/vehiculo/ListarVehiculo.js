@@ -51,6 +51,7 @@ const Vehiculos = () => {
         prevVehiculos.filter((vehiculo) => vehiculo.id !== Id)
       );
       Alert.alert('Notificación', 'Vehículo eliminado correctamente.');
+      obtenerVehiculos();
     } catch (error) {
       console.log(error);
       Alert.alert("Error", "No se pudo eliminar el vehículo, intenta de nuevo.");
@@ -76,29 +77,29 @@ const Vehiculos = () => {
     <View style={styles.contenedor}>
       <View style={styles.titulo}>
         <Text style={styles.texttitulo}>Listado de Vehículos</Text>
-        <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('InsertarEditarVehiculo')}>
+        <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('InsertarEditarVehiculos')}>
           <FontAwesomeIcon icon={faCirclePlus} size={30} color="#339ef0" />
         </TouchableOpacity>
       </View>
       <FlatList
         data={vehiculos}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => item.vehiculoid.toString()}
         renderItem={({ item }) => (
           <View style={styles.card}>
-            <Text style={styles.cardTitle}>Vehículo ID: {item.id}</Text>
+            <Text style={styles.cardTitle}>Vehículo ID: {item.vehiculoid}</Text>
             <View style={styles.cardContent}>
               <Text style={styles.cardText}>Marca: {item.marca}</Text>
               <Text style={styles.cardText}>Modelo: {item.modelo}</Text>
-              <Text style={styles.cardText}>Año: {item.anio}</Text>
-              <Text style={styles.cardText}>Precio por Día: L {item.precio}</Text>
-              <Text style={styles.cardText}>Tipo: {item.tipo}</Text>
+              <Text style={styles.cardText}>Año: {item.año}</Text>
+              <Text style={styles.cardText}>Precio por Día: L {item.precioPorDia}</Text>
+              <Text style={styles.cardText}>Tipo: {item.tipoVehiculo}</Text>
               <Text style={styles.cardText}>Estado: {item.estado}</Text>
               <Text style={styles.cardText}>Placa: {item.placa}</Text>
               <View style={styles.botonesContainer}>
-                <TouchableOpacity onPress={() => confirmarEliminacion(item.id)}>
+                <TouchableOpacity onPress={() => confirmarEliminacion(item.vehiculoid)}>
                   <FontAwesomeIcon icon={faTrash} size={24} color="red" />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('InsertarEditarVehiculo', { id: item.id })}>
+                <TouchableOpacity onPress={() => navigation.navigate('InsertarEditarVehiculos', { vehiculoid: item.vehiculoid })}>
                   <FontAwesomeIcon icon={faPenToSquare} size={24} color="#339ef0" />
                 </TouchableOpacity>
               </View>
