@@ -27,10 +27,9 @@ const Stack = createStackNavigator();
 
 const Navegacion = () => {
   useEffect(() => {
-    // Para que la barra de estado sea translúcida o semitransparente
-    StatusBar.setBarStyle('light-content'); // Cambiar el color del texto a negro
-    StatusBar.setBackgroundColor('transparent'); // Fondo transparente
-    StatusBar.setTranslucent(true); // Hacer que la barra sea translúcida
+    StatusBar.setBarStyle('light-content'); 
+    StatusBar.setBackgroundColor('transparent'); 
+    StatusBar.setTranslucent(true); 
   }, []);
 
   return (
@@ -52,10 +51,10 @@ const Navegacion = () => {
           <Stack.Screen name="Mis Rentas" component={MisRentas} options={{ headerShown: false }} />
           <Stack.Screen name="Vehiculos" component={Vehiculo} options={{ headerShown: false }}/>
           <Stack.Screen name="InsertarEditarVehiculos" component={InsertarEditarVehiculo} options={{ headerShown: false }} />
-          <Stack.Screen name="InsertarEditarSucursal" component={InsertarEditarSucursal} />
-          <Stack.Screen name="InsertarEditarCliente" component={InsertarEditarCliente} />
-          <Stack.Screen name="Sucursal" component={Sucursal} />
-          <Stack.Screen name="Cliente" component={Cliente} />
+          <Stack.Screen name="InsertarEditarSucursal" component={InsertarEditarSucursal} options={{ headerShown: false }} />
+          <Stack.Screen name="InsertarEditarCliente" component={InsertarEditarCliente} options={{ headerShown: false }} />
+          <Stack.Screen name="Sucursal" component={Sucursal} options={{ headerShown: false }} />
+          <Stack.Screen name="Cliente" component={Cliente} options={{ headerShown: false }} />
         </Stack.Navigator>
       </NavigationContainer>
     </>

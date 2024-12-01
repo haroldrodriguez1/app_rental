@@ -1,7 +1,8 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, Dimensions } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Alert, FlatList, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -21,6 +22,19 @@ const BotonesGrid = () => {
 
   ];
 
+  const cerrarSesion = async () => {
+    try {
+        await AsyncStorage.removeItem('authToken');
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'Login' }],
+        });
+        Alert.alert('Sesión cerrada', 'Has cerrado sesión correctamente.');
+    } catch (error) {
+        Alert.alert('Error', 'Hubo un problema al cerrar sesión.');
+    }
+};
+
   const renderItem = ({ item }) => (
     <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate(item.ruta)}>
       <Icon name={item.icono} size={40} color="#339ef0" />
@@ -30,6 +44,13 @@ const BotonesGrid = () => {
 
   return (
     <View style={styles.contenedor}>
+      <View style={styles.header}>
+        <TouchableOpacity style={styles.botonCerrarSesion} onPress={cerrarSesion}>
+          <Icon name="logout" size={20} color="#fff" />
+          <Text style={styles.textoCerrarSesion}>Salir</Text>
+        </TouchableOpacity>
+      </View>
+      
       <FlatList
         data={botones}
         renderItem={renderItem}
@@ -40,8 +61,8 @@ const BotonesGrid = () => {
       />
     </View>
   );
+  
 };
-
 const styles = StyleSheet.create({
   contenedor: {
     flex: 1,
@@ -49,9 +70,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 20,
   },
-  lista: {
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
     alignItems: 'center',
     marginTop:25
+  },
+  lista: {
+    alignItems: 'center',
+    marginTop:40
   },
   fila: {
     justifyContent: 'space-between',
@@ -61,7 +88,7 @@ const styles = StyleSheet.create({
   backgroundColor: '#1A1A2E',
     alignItems: 'center',
     justifyContent: 'center',
-    width: screenWidth / 2.4, // Ajustar ancho para que se vean bien en la cuadrícula
+    width: screenWidth / 2.4, 
     height: 120,
     margin: 5,
     borderRadius: 12,
@@ -78,6 +105,20 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#ffffff',
     textAlign: 'center',
+  },
+  botonCerrarSesion: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#E94560',
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 8,
+  },
+  textoCerrarSesion: {
+    marginLeft: 5,
+    fontSize: 14,
+    color: '#fff',
   },
 });
 
