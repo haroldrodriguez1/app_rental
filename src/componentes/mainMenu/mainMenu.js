@@ -18,6 +18,8 @@ const BotonesGrid = () => {
     { id: '6', titulo: 'Vehículos', icono: 'directions-car', ruta: 'Vehiculos' },
     { id: '7', titulo: 'Sucursal', icono: 'category', ruta: 'Sucursal'},
     { id: '8', titulo: 'Cliente', icono: 'category', ruta: 'Cliente'},
+    { id: '9', titulo: 'Usuario', icono: 'category', ruta: 'Usuario'},
+    { id: '10', titulo: 'Empleado', icono: 'category', ruta: 'Empleado'},
 
 
   ];

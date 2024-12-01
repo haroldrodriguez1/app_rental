@@ -21,7 +21,10 @@ import InsertarEditarSucursal from '../componentes/sucursal/InsertarEditarSucurs
 import InsertarEditarCliente from '../componentes/cliente/InsertarEditarCliente';
 import Sucursal from '../componentes/sucursal/ListarSucursal';
 import Cliente from '../componentes/cliente/ListarCliente';
-
+import InsertarEditarEmpleado from '../componentes/empleado/InsertarEditarEmpleado';
+import InsertarEditarUsuario from '../componentes/usuario/InsertarEditarUsuario';
+import Empleado from '../componentes/empleado/ListarEmpleado';
+import Usuario from '../componentes/usuario/ListarUsuario';
 
 const Stack = createStackNavigator();
 
@@ -55,6 +58,10 @@ const Navegacion = () => {
           <Stack.Screen name="InsertarEditarCliente" component={InsertarEditarCliente} options={{ headerShown: false }} />
           <Stack.Screen name="Sucursal" component={Sucursal} options={{ headerShown: false }} />
           <Stack.Screen name="Cliente" component={Cliente} options={{ headerShown: false }} />
+          <Stack.Screen name="InsertarEditarUsuario" component={InsertarEditarUsuario} options={{ headerShown: false }} />
+          <Stack.Screen name="InsertarEditarEmpleado" component={InsertarEditarEmpleado} options={{ headerShown: false }} />
+          <Stack.Screen name="Usuario" component={Usuario} options={{ headerShown: false }} />
+          <Stack.Screen name="Empleado" component={Empleado} options={{ headerShown: false }} />
         </Stack.Navigator>
       </NavigationContainer>
     </>
