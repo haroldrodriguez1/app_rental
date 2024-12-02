@@ -25,6 +25,8 @@ import InsertarEditarEmpleado from '../componentes/empleado/InsertarEditarEmplea
 import InsertarEditarUsuario from '../componentes/usuario/InsertarEditarUsuario';
 import Empleado from '../componentes/empleado/ListarEmpleado';
 import Usuario from '../componentes/usuario/ListarUsuario';
+import editarCliente from '../componentes/cliente/editar';
+
 
 const Stack = createStackNavigator();
 
@@ -62,6 +64,7 @@ const Navegacion = () => {
           <Stack.Screen name="InsertarEditarEmpleado" component={InsertarEditarEmpleado} options={{ headerShown: false }} />
           <Stack.Screen name="Usuario" component={Usuario} options={{ headerShown: false }} />
           <Stack.Screen name="Empleado" component={Empleado} options={{ headerShown: false }} />
+          <Stack.Screen name="Editar cliente" component={editarCliente} options={{ headerShown: false }} />
         </Stack.Navigator>
       </NavigationContainer>
     </>
