@@ -16,12 +16,10 @@ const BotonesGrid = () => {
     { id: '4', titulo: 'Renta', icono: 'car-rental',ruta:'Renta' },
     { id: '5', titulo: 'Lista de Rentas', icono: 'list-alt',ruta:'Mis Rentas' },
     { id: '6', titulo: 'Vehículos', icono: 'directions-car', ruta: 'Vehiculos' },
-    { id: '7', titulo: 'Sucursal', icono: 'category', ruta: 'Sucursal'},
-    { id: '8', titulo: 'Cliente', icono: 'category', ruta: 'Cliente'},
-    { id: '9', titulo: 'Usuario', icono: 'category', ruta: 'Usuario'},
-    { id: '10', titulo: 'Empleado', icono: 'category', ruta: 'Empleado'},
-
-
+    { id: '7', titulo: 'Sucursal', icono: 'factory', ruta: 'Sucursal'},
+    { id: '8', titulo: 'Cliente', icono: 'person', ruta: 'Cliente'},
+    { id: '9', titulo: 'Usuario', icono: 'face', ruta: 'Usuario'},
+    { id: '10', titulo: 'Empleado', icono: 'badge', ruta: 'Empleado'}
   ];
 
   const cerrarSesion = async () => {
@@ -60,6 +58,7 @@ const BotonesGrid = () => {
         numColumns={2}
         columnWrapperStyle={styles.fila}
         contentContainerStyle={styles.lista}
+
       />
     </View>
   );
@@ -80,7 +79,8 @@ const styles = StyleSheet.create({
   },
   lista: {
     alignItems: 'center',
-    marginTop:40
+    marginTop:40,
+    paddingBottom: 20,
   },
   fila: {
     justifyContent: 'space-between',
@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
     shadowRadius: 1.41,
     elevation: 2,
   },
+  
   textoBoton: {
     marginTop: 10,
     fontSize: 16,

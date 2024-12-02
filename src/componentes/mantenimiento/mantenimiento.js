@@ -56,7 +56,7 @@ const Mantenimiento = () => {
         if (resultado) {
             setmantenimiento([resultado]); 
         } else {
-            Alert.alert("No encontrado", `No se encontró ningún mantenimiento activo con el ID ${idBusqueda}`);
+            Alert.alert("No encontrado", `No se encontró ningún mantenimiento con el ID ${idBusqueda}`);
             setIdBusqueda(''); 
             setmantenimiento(mantenimientoBusqueda.filter((item) => item.activo)); 
         }
