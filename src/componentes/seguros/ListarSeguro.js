@@ -85,7 +85,7 @@ const Seguros = () => {
                 </TouchableOpacity>
             </View>
             <FlatList
-                data={seguros.filter((item) => item.estado)}
+                data={seguros}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (
                     <View style={styles.card}>
@@ -94,6 +94,7 @@ const Seguros = () => {
                             <Text style={styles.cardText}>Nombre: {item.nombre}</Text>
                             <Text style={styles.cardText}>Costo: L {item.precio}</Text>
                             <Text style={styles.cardText}>Cobertura: {item.cobertura}</Text>
+                            <Text style={styles.cardText}>Estado: {item.estado === true ? "Disponible" : "No Disponible"}</Text>
                             <View style={styles.botonesContainer}>
                                 <TouchableOpacity onPress={() => confirmarEliminacion(item.id)}>
                                     <FontAwesomeIcon icon={faTrash} size={24} color="red" />

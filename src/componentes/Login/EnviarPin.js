@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
+const ip = require('../ip/ip');
 
 const EnviarPin = () => {
   const [correo, setCorreo] = useState('');
@@ -9,7 +10,7 @@ const EnviarPin = () => {
 
   const enviar = async () => {
     try {
-      const respuesta = await axios.post('http://192.168.0.8:3001/api/usuarios/recuperar', { correo });
+      const respuesta = await axios.post('http://'+ip+'/api/usuarios/recuperar', { correo });
       Alert.alert('Mensaje:', respuesta.data.msg);
       navigation.navigate('RecuperarContrasena', { correo });
     } catch (error) {

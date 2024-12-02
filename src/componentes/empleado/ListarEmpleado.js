@@ -38,7 +38,7 @@ const Empleados = () => {
   const eliminarEmpleado = async (id) => {
     try {
       const token = await AsyncStorage.getItem('authToken');
-      await axios.delete(`http://${ip}:3001/api/empleado/eliminar?id=${id}`, {
+      await axios.delete(`http://${ip}:3001/api/empleado/eliminar?id_empleado=${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setEmpleados((prevEmpleados) => prevEmpleados.filter((empleado) => empleado.id_empleado !== id));

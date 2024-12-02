@@ -78,12 +78,14 @@ const InsertarEditarServicio = () => {
         placeholder="Nombre"
         value={nombre}
         onChangeText={setNombre}
+        placeholderTextColor={"#339ef0"}
       />
       <TextInput
         style={styles.input}
         placeholder="Descripción"
         value={descripcion}
         onChangeText={setDescripcion}
+        placeholderTextColor={"#339ef0"}
       />
       
       
@@ -108,6 +110,7 @@ const InsertarEditarServicio = () => {
         value={precio}
         keyboardType="numeric"
         onChangeText={setPrecio}
+        placeholderTextColor={"#339ef0"}
       />
       <TouchableOpacity style={styles.boton} onPress={manejarGuardar}>
         <Text style={styles.textoBoton}>{id ? 'Actualizar' : 'Guardar'}</Text>
@@ -120,22 +123,26 @@ const styles = StyleSheet.create({
   contenedor: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#f8f8f8',
+    backgroundColor: '#1A1A2E', 
+    padding: 20,
   },
   titulo: {
     fontSize: 24,
     fontWeight: 'bold',
+    marginTop: 25,
     marginBottom: 20,
-    color: '#333',
+    color: '#fff',
   },
   input: {
-    backgroundColor: '#fff',
+    backgroundColor: '#2F2F3E',
     padding: 10,
     marginBottom: 15,
-    borderRadius: 5,
+    borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#ddd',
-  },
+    borderColor: '#fff',
+    color :'#fff',
+   
+  }, 
   radioGroup: {
     flexDirection: 'row',
     justifyContent: 'space-around',

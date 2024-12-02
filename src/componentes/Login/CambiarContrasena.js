@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import axios from 'axios';
+const ip = require('../ip/ip');
 
 const RecuperarContrasena = () => {
   const route = useRoute();
@@ -12,7 +13,7 @@ const RecuperarContrasena = () => {
 
   const cambiar = async () => {
     try {
-      const respuesta = await axios.post('http://192.168.0.8:3001/api/usuarios/contrasena', { pin: pin, contrasena: nuevaContrasena, correo: correo });
+      const respuesta = await axios.post('http://'+ip+'/api/usuarios/contrasena', { pin: pin, contrasena: nuevaContrasena, correo: correo });
       console.log('Cambiar Contraseña:', respuesta.data);
       Alert.alert('Contraseña cambiada', 'Tu contraseña ha sido cambiada exitosamente.');
       navigation.navigate('Login');

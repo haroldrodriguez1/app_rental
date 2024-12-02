@@ -10,25 +10,24 @@ const InsertarEditarSucursal = () => {
   const route = useRoute();
   const { id } = route.params || {}; 
   const [nombre, setNombre] = useState('');
-  const [tipo, setTipo] = useState('');
   const [direccion, setDireccion] = useState('');
   const [telefono, setTelefono] = useState('');
-  const [idEmpresa, setIdEmpresa] = useState('');
+  const [estado, setEstado] = useState(true); 
+
 
   useEffect(() => {
     if (id) {
       const obtenerSucursal = async () => {
         try {
           const token = await AsyncStorage.getItem('authToken');
-          const respuesta = await axios.get(`http://${ip}:3001/api/sucursal/buscarsucursal?id=${id}`, {
+          const respuesta = await axios.get(`http://${ip}:3001/api/sucursal/buscaridSucursal?id=${id}`, {
             headers: { Authorization: `Bearer ${token}` },
           });
           const sucursal = respuesta.data[0];
           setNombre(sucursal.nombre);
-          setTipo(sucursal.tipo);
-          setDescripcion(sucursal.direccion);
-          setCobertura(sucursal.telefono);
-          setPrecio(sucursal.idEmpresa);
+          setDireccion(sucursal.direccion);
+          setTelefono(sucursal.telefono);
+          setEstado(sucursal.estado)
         } catch (error) {
           console.error('Error al cargar los datos de la sucursal', error);
           Alert.alert('Error', 'No se pudieron cargar los datos de la sucursal.');
@@ -39,19 +38,18 @@ const InsertarEditarSucursal = () => {
   }, [id]);
 
   const manejarGuardar = async () => {
-    if (!nombre || !tipo || !direccion || !telefono || !idEmpresa) {
+    if (!nombre  || !direccion || !telefono ) {
       Alert.alert('Error', 'Por favor completa todos los campos.');
       return;
     }
 
     const sucursal = {
       nombre,
-      tipo,
       direccion,
       telefono,
-      estado: true,
+      estado 
     };
-
+    console.log(sucursal);
     try {
       const token = await AsyncStorage.getItem('authToken');
       if (id) {
@@ -81,12 +79,7 @@ const InsertarEditarSucursal = () => {
         value={nombre}
         onChangeText={setNombre}
       />
-      <TextInput
-        style={styles.input}
-        placeholder="Tipo"
-        value={tipo}
-        onChangeText={setTipo}
-      />
+
       <TextInput
         style={styles.input}
         placeholder="Direccion"
@@ -99,13 +92,22 @@ const InsertarEditarSucursal = () => {
         value={telefono}
         onChangeText={setTelefono}
       />
-      <TextInput
-        style={styles.input}
-        placeholder="IdEmpresa"
-        value={idEmpresa}
-        onChangeText={setIdEmpresa}
 
-      />
+      <View style={styles.radioGroup}>
+        <TouchableOpacity
+          style={[styles.radioButton, estado && styles.radioSelected]}
+          onPress={() => setEstado(true)}
+        >
+          <Text style={styles.radioText}>Disponible</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.radioButton, !estado && styles.radioSelected]}
+          onPress={() => setEstado(false)}
+        >
+          <Text style={styles.radioText}>No Disponible</Text>
+        </TouchableOpacity>
+      </View>
+ 
       <TouchableOpacity style={styles.boton} onPress={manejarGuardar}>
         <Text style={styles.textoBoton}>{id ? 'Actualizar' : 'Guardar'}</Text>
       </TouchableOpacity>
@@ -117,21 +119,24 @@ const styles = StyleSheet.create({
   contenedor: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#f8f8f8',
+    backgroundColor: '#1A1A2E', 
+    padding: 20,
   },
   titulo: {
     fontSize: 24,
     fontWeight: 'bold',
+    marginTop: 25,
     marginBottom: 20,
-    color: '#333',
+    color: '#fff',
   },
   input: {
-    backgroundColor: '#fff',
+    backgroundColor: '#2F2F3E',
     padding: 10,
     marginBottom: 15,
-    borderRadius: 5,
+    borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: '#fff',
+    color :'#fff'
   },
   boton: {
     backgroundColor: '#339ef0',
@@ -143,6 +148,24 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  radioGroup: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 15,
+  },
+  radioButton: {
+    padding: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    backgroundColor: '#fff',
+  },
+  radioSelected: {
+    backgroundColor: '#339ef0',
+  },
+  radioText: {
+    color: '#333',
   },
 });
 

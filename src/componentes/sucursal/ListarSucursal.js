@@ -34,7 +34,7 @@ const Sucursal = () => {
         }, []);
         
         useFocusEffect(
-            useCallback(() => {
+            useCallback(() => { 
                 obtenerSucursal();
             }, [])
         );
@@ -48,11 +48,11 @@ const Sucursal = () => {
                 }
             });
 
-            setSucursal((prevSucursal) =>
-                prevSucursal.map((seguro) =>
-                    seguro.id === Id ? { ...sucursal, activo: false } : sucursal
+           /*  setSucursal((prevSucursal) =>
+                prevSucursal.map((sucursal) =>
+                    sucursal.id === Id ? { ...sucursal, estado: false } : sucursal
                 )
-            );
+            ); */
             obtenerSucursal();
             Alert.alert('Notificacion', JSON.stringify(respuesta.data, null, 2));
         } catch (error) {
@@ -67,7 +67,7 @@ const Sucursal = () => {
             "¿Estás seguro de que deseas eliminar esta sucursal?",
             [
                 { text: "Cancelar", style: "cancel" },
-                { text: "Eliminar", onPress: () => eliminarSeguro(id), style: "destructive" }
+                { text: "Eliminar", onPress: () => eliminarSucursal(id), style: "destructive" }
             ]
         );
     };
@@ -85,7 +85,7 @@ const Sucursal = () => {
                 </TouchableOpacity>
             </View>
             <FlatList
-                data={sucursal.filter((item) => item.estado)}
+                data={sucursal}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (
                     <View style={styles.card}>
@@ -94,6 +94,7 @@ const Sucursal = () => {
                             <Text style={styles.cardText}>Nombre: {item.nombre}</Text>
                             <Text style={styles.cardText}>Direccion:  {item.direccion}</Text>
                             <Text style={styles.cardText}>Telefono: {item.telefono}</Text>
+                            <Text style={styles.cardText}>Estado: {item.estado === true ? "Disponible" : "No Disponible"}</Text>
                             <View style={styles.botonesContainer}>
                                 <TouchableOpacity onPress={() => confirmarEliminacion(item.id)}>
                                     <FontAwesomeIcon icon={faTrash} size={24} color="red" />
@@ -114,23 +115,27 @@ const styles = StyleSheet.create({
     contenedor: {
         flex: 1,
         padding: 13,
-        backgroundColor: '#f8f8f8',
+        backgroundColor: '#0F3460',
+
     },
-    titulo: {
-        flexDirection: 'row',
-        justifyContent: 'center',
+    titulo:{
+        flexDirection: 'row', 
+        justifyContent:'center',
+        marginTop:25
     },
     texttitulo: {
         fontSize: 24,
         fontWeight: 'bold',
-        color: '#333',
+        color: '#ffffff'
     },
-    boton: {
-        marginLeft: 10,
-        marginTop: 5,
+    boton:{
+        marginLeft:10,
+        marginTop: 5
     },
+
     card: {
-        backgroundColor: '#fff',
+        
+        backgroundColor: '#1A1A2E',
         padding: 16,
         marginVertical: 8,
         borderRadius: 10,
@@ -146,20 +151,21 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         marginBottom: 8,
-        color: '#333',
+        color: '#ffffff',
     },
     cardContent: {
         marginTop: 4,
     },
     cardText: {
         fontSize: 16,
-        color: '#555',
+        color: '#ffffff',
         marginBottom: 4,
     },
     botonesContainer: {
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        gap: 22,
+        flexDirection: 'row', 
+        justifyContent: 'flex-end', 
+        gap: 22
+       
     },
 });
 

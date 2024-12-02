@@ -19,7 +19,7 @@ const InsertarEditarEmpleado = () => {
       const obtenerEmpleado = async () => {
         try {
           const token = await AsyncStorage.getItem('authToken');
-          const respuesta = await axios.get(`http://${ip}:3001/api/empleado/buscar?id=${id}`, {
+          const respuesta = await axios.get(`http://${ip}:3001/api/empleado/buscaridempleado?id_empleado=${id}`, {
             headers: { Authorization: `Bearer ${token}` },
           });
           const empleado = respuesta.data[0];
@@ -52,7 +52,7 @@ const InsertarEditarEmpleado = () => {
     try {
       const token = await AsyncStorage.getItem('authToken');
       if (id) {
-        const respuesta = await axios.put(`http://${ip}:3001/api/empleado/editar?id=${id}`, empleado, {
+        const respuesta = await axios.put(`http://${ip}:3001/api/empleado/editar?id_empleado=${id}`, empleado, {
           headers: { Authorization: `Bearer ${token}` },
         });
         Alert.alert('Notificación', JSON.stringify(respuesta.data, null, 2));
