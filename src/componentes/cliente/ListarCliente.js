@@ -1,5 +1,5 @@
 import React, { useState, useEffect , useCallback  } from 'react';
-import { View, Text, FlatList, StyleSheet, ActivityIndicator, Alert, TextInput } from 'react-native';
+import { View, Text, FlatList, StyleSheet, ActivityIndicator, Alert, TextInput,Image } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -118,10 +118,18 @@ const Cliente = () => {
                 </TouchableOpacity>
             </View>
             <FlatList
+
                 data={cliente.filter((item) => item.estado === 'AC')}
                 keyExtractor={(item) => item.clienteId.toString()}
                 renderItem={({ item }) => (
                     <View style={styles.card}>
+                    <View style={styles.imagenContainer}>
+          <Image 
+            source={{ uri: `http://${ip}:3001/clientesIMG/${item.nombreImagen}` }} 
+            style={styles.imagenVehiculo} 
+            resizeMode="cover" 
+          />
+        </View>
                         <Text style={styles.cardTitle}>Cliente ID: {item.clienteId}</Text>
                         <View style={styles.cardContent}>
                             <Text style={styles.cardText}>PrimerNombre: {item.primernombre}</Text>
@@ -230,6 +238,19 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         gap: 22,
     },
+    imagenVehiculo: {
+        width: 150, // Ajusta el tamaño según tus necesidades
+        height: 100,
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: '#ddd',
+      },
+      imagenContainer: {
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        marginBottom: 10, 
+    },
+    
 });
 
 export default Cliente;

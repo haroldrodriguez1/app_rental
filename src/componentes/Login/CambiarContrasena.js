@@ -13,7 +13,7 @@ const RecuperarContrasena = () => {
 
   const cambiar = async () => {
     try {
-      const respuesta = await axios.post('http://'+ip+'/api/usuarios/contrasena', { pin: pin, contrasena: nuevaContrasena, correo: correo });
+      const respuesta = await axios.post('http://'+ip+':3001/api/usuarios/contrasena', { pin: pin, contrasena: nuevaContrasena, correo: correo });
       console.log('Cambiar Contraseña:', respuesta.data);
       Alert.alert('Contraseña cambiada', 'Tu contraseña ha sido cambiada exitosamente.');
       navigation.navigate('Login');

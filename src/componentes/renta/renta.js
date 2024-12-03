@@ -79,6 +79,7 @@ const InsertarEditarRenta = () => {
       const respuesta = await axios.get(url, {
         headers: { Authorization: `Bearer ${token}` },
       });
+     
       setListaDatos(respuesta.data);
       setTipoSeleccion(tipo);
       setModalVisible(true);
@@ -278,7 +279,7 @@ const InsertarEditarRenta = () => {
             return item.vehiculoid.toString(); 
       
           case 'cliente':
-            return item.primernombre.toString(); 
+            return item.clienteId.toString(); 
       
           default:
             return item.id.toString(); 

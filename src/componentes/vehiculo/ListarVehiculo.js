@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, FlatList, StyleSheet, ActivityIndicator, Alert } from 'react-native';
+import { View, Text, FlatList, StyleSheet, ActivityIndicator, Alert ,Image} from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -82,31 +82,41 @@ const Vehiculos = () => {
         </TouchableOpacity>
       </View>
       <FlatList
-        data={vehiculos}
-        keyExtractor={(item) => item.vehiculoid.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.card}>
-            <Text style={styles.cardTitle}>Vehículo ID: {item.vehiculoid}</Text>
-            <View style={styles.cardContent}>
-              <Text style={styles.cardText}>Marca: {item.marca}</Text>
-              <Text style={styles.cardText}>Modelo: {item.modelo}</Text>
-              <Text style={styles.cardText}>Año: {item.año}</Text>
-              <Text style={styles.cardText}>Precio por Día: L {item.precioPorDia}</Text>
-              <Text style={styles.cardText}>Tipo: {item.tipoVehiculo}</Text>
-              <Text style={styles.cardText}>Estado: {item.estado}</Text>
-              <Text style={styles.cardText}>Placa: {item.placa}</Text>
-              <View style={styles.botonesContainer}>
-                <TouchableOpacity onPress={() => confirmarEliminacion(item.vehiculoid)}>
-                  <FontAwesomeIcon icon={faTrash} size={24} color="red" />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('InsertarEditarVehiculos', { vehiculoid: item.vehiculoid })}>
-                  <FontAwesomeIcon icon={faPenToSquare} size={24} color="#339ef0" />
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-        )}
-      />
+  data={vehiculos}
+  keyExtractor={(item) => item.vehiculoid.toString()}
+  renderItem={({ item }) => (
+    <View style={styles.card}>
+      <Text style={styles.cardTitle}>Vehículo ID: {item.vehiculoid}</Text>
+      <View style={styles.cardContent}>
+        {/* Imagen del vehículo */}
+        <View style={styles.imagenContainer}>
+          <Image 
+            source={{ uri: `http://${ip}:3001/uploads/${item.nombreImagen}` }} 
+            style={styles.imagenVehiculo} 
+            resizeMode="cover" 
+          />
+        </View>
+        {/* Información del vehículo */}
+        <Text style={styles.cardText}>Marca: {item.marca}</Text>
+        <Text style={styles.cardText}>Modelo: {item.modelo}</Text>
+        <Text style={styles.cardText}>Año: {item.año}</Text>
+        <Text style={styles.cardText}>Precio por Día: L {item.precioPorDia}</Text>
+        <Text style={styles.cardText}>Tipo: {item.tipoVehiculo}</Text>
+        <Text style={styles.cardText}>Estado: {item.estado === true ? "Disponible" : "No Disponible"}</Text>
+        <Text style={styles.cardText}>Placa: {item.placa}</Text>
+        <View style={styles.botonesContainer}>
+          <TouchableOpacity onPress={() => confirmarEliminacion(item.vehiculoid)}>
+            <FontAwesomeIcon icon={faTrash} size={24} color="red" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('InsertarEditarVehiculos', { vehiculoid: item.vehiculoid })}>
+            <FontAwesomeIcon icon={faPenToSquare} size={24} color="#339ef0" />
+          </TouchableOpacity>
+        </View>
+      </View>
+    </View>
+  )}
+/>
+
     </View>
   );
 };
@@ -163,6 +173,18 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     gap: 22,
   },
+  imagenContainer: {
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  imagenVehiculo: {
+    width: 150, // Ajusta el tamaño según tus necesidades
+    height: 100,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#ddd',
+  },
+  
 });
 
 export default Vehiculos;

@@ -1,26 +1,31 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert, ScrollView } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert, ScrollView,Image } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import FormData from 'form-data';
+import * as ImagePicker from 'expo-image-picker';
+
 const ip = require('../ip/ip');
 
 const InsertarEditarCliente = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const { clienteId } = route.params || {};
-  const [nombreUsuario, setNombreUsuario] = useState('');
+  const [nombreUsuario, setNombreUsuario] = useState('pruebac');
   const [tipoUsuario, setTipoUsuario] = useState('Cliente');
-  const [correo, setCorreo] = useState('');
-  const [contrasena, setContrasena] = useState('');
-  const [identificacion, setIdentificacion] = useState('');
-  const [identidad, setIdentidad] = useState('');
-  const [primernombre, setPrimerNombre] = useState('');
-  const [segundonombre, setSegundoNombre] = useState('');
-  const [primerapellido, setPrimerApellido] = useState('');
-  const [segundoapellido, setSegundoApellido] = useState('');
-  const [telefono, setTelefono] = useState('');
-  const [direccion, setDireccion] = useState('');
+  const [correo, setCorreo] = useState('haroldwinstonr2001@yahoo.com');
+  const [contrasena, setContrasena] = useState('contrasena');
+  const [identificacion, setIdentificacion] = useState('1234');
+  const [identidad, setIdentidad] = useState('1234');
+  const [primernombre, setPrimerNombre] = useState('Juan');
+  const [segundonombre, setSegundoNombre] = useState('Carlos');
+  const [primerapellido, setPrimerApellido] = useState('Pérez');
+  const [segundoapellido, setSegundoApellido] = useState('Gómez');
+  const [telefono, setTelefono] = useState('12345678');
+  const [direccion, setDireccion] = useState('Calle Principal #123, Ciudad');
+  const [imagenUri, setImagenUri] = useState(null);
+  const [imagen, setImagen] = useState(new FormData());
 
   const manejarGuardar = async () => {
     if (!nombreUsuario ||!correo ||!contrasena ||!identificacion ||!identidad ||!primernombre ||!primerapellido ||!telefono ||!direccion) {
@@ -40,14 +45,52 @@ const InsertarEditarCliente = () => {
 
     try {
       const token = await AsyncStorage.getItem('authToken');
-      await axios.post(`http://${ip}:3001/api/cliente/guardar`, cliente, {
+       const respuesta = await axios.post(`http://${ip}:3001/api/cliente/guardar`, cliente, {
         headers: { Authorization: `Bearer ${token}` },
-      });
+      }); 
+       const idcliente = JSON.stringify(respuesta.data.data.clienteId);
+      const respuestas = await axios.post(`http://${ip}:3001/api/archivos/imagen/cliente?id=${idcliente}`, imagen, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      }); 
       Alert.alert('Notificación', 'Cliente guardado correctamente.');
       navigation.goBack();
     } catch (error) {
       console.error('Error al guardar el cliente', error.response?.data || error);
       Alert.alert('Error', error.response?.data?.msg || 'No se pudo guardar el cliente. Intenta de nuevo.');
+    }
+  };
+
+  const seleccionarImagen = async () => {
+    const permiso = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (!permiso.granted) {
+      Alert.alert('Permiso denegado', 'Se necesita acceso a la galería para seleccionar imágenes.');
+      return;
+    }
+  
+    const resultado = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      quality: 1,
+    });
+  
+    if (!resultado.canceled) {
+      const uriParts = resultado.assets[0].uri.split('.');
+      const tipo = resultado.assets[0].type + '/' + uriParts[uriParts.length - 1];
+      const nombre = resultado.assets[0].uri.split('/').pop();
+      console.log(nombre);
+      
+      imagen.append('imagen', {
+        name: nombre,
+        type: tipo,
+        uri: resultado.assets[0].uri,
+      });
+  
+      setImagenUri(resultado.assets[0].uri);
+  
+
     }
   };
 
@@ -131,7 +174,15 @@ const InsertarEditarCliente = () => {
         value={direccion}
         onChangeText={setDireccion}
       />
+        <TouchableOpacity style={styles.button} onPress={seleccionarImagen}>
+  <Text style={styles.buttonText}>Seleccionar Imagen</Text>
+</TouchableOpacity>
 
+{imagenUri && (
+  <View style={styles.previewContenedor}>
+    <Image source={{ uri: imagenUri }} style={styles.previewImagen} />
+  </View>
+)}
       <TouchableOpacity style={styles.button} onPress={manejarGuardar}>
         <Text style={styles.buttonText}>Guardar</Text>
       </TouchableOpacity>
@@ -172,11 +223,24 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     alignItems: 'center',
+    marginBottom :20
   },
   buttonText: {
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  previewContenedor: {
+    marginTop: 20,
+    alignItems: 'center',
+    marginBottom :20
+  },
+  previewImagen: {
+    width: 150,
+    height: 150,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#D1D8E0',
   },
 });
 

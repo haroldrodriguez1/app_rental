@@ -86,20 +86,20 @@ const Sucursal = () => {
             </View>
             <FlatList
                 data={sucursal}
-                keyExtractor={(item) => item.id.toString()}
+                keyExtractor={(item) => item.codigo.toString()}
                 renderItem={({ item }) => (
                     <View style={styles.card}>
-                        <Text style={styles.cardTitle}>Sucursal ID: {item.id}</Text>
+                        <Text style={styles.cardTitle}>Sucursal ID: {item.codigo}</Text>
                         <View style={styles.cardContent}>
                             <Text style={styles.cardText}>Nombre: {item.nombre}</Text>
                             <Text style={styles.cardText}>Direccion:  {item.direccion}</Text>
                             <Text style={styles.cardText}>Telefono: {item.telefono}</Text>
                             <Text style={styles.cardText}>Estado: {item.estado === true ? "Disponible" : "No Disponible"}</Text>
                             <View style={styles.botonesContainer}>
-                                <TouchableOpacity onPress={() => confirmarEliminacion(item.id)}>
+                                <TouchableOpacity onPress={() => confirmarEliminacion(item.codigo)}>
                                     <FontAwesomeIcon icon={faTrash} size={24} color="red" />
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={() => navigation.navigate('InsertarEditarSucursal', { id: item.id })}>
+                                <TouchableOpacity onPress={() => navigation.navigate('InsertarEditarSucursal', { id: item.codigo })}>
                                     <FontAwesomeIcon icon={faPenToSquare} size={24} color="#339ef0" />
                                 </TouchableOpacity>
                             </View>

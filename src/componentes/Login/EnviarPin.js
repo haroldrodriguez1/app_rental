@@ -10,7 +10,8 @@ const EnviarPin = () => {
 
   const enviar = async () => {
     try {
-      const respuesta = await axios.post('http://'+ip+'/api/usuarios/recuperar', { correo });
+      console.log('enviar PIN'); 
+      const respuesta = await axios.post('http://'+ip+':3001/api/usuarios/recuperar', { correo : correo });
       Alert.alert('Mensaje:', respuesta.data.msg);
       navigation.navigate('RecuperarContrasena', { correo });
     } catch (error) {
